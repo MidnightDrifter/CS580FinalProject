@@ -31,8 +31,9 @@ public:
 	void setPreferredResource(int x);  //Note:  this is the ONLY method that can break the limit on the resource amounts
 	void setPlayerAreaSize(int x);
 
-	
+	void generateTerrain(); //Generates the terrain values via weighted randoms
 
+	bool isInPlayerArea(int i, int x, int y);
 
 private:
 	TerrainNode map[SIZE_OF_MAP][SIZE_OF_MAP];
