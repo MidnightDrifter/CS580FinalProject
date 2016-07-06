@@ -1,8 +1,16 @@
 #pragma once
+#include "Source/terrain.h"
+#include "Source/global.h"
 class TerrainNode
 {
+	
+
+
+
+public:
+
 	enum OWNER_INFO {
-		NO_OWNER=-1,
+		NO_OWNER = -1,
 		PLAYER_1,   //red
 		PLAYER_2,	//green
 		PLAYER_3,	//yellow
@@ -11,7 +19,7 @@ class TerrainNode
 	};
 
 	enum RESOURCE_INFO {
-		
+
 		NO_RESOURCE = -1,
 		MINERALS,   //Minerals - red
 		GOLD,  //yellow
@@ -19,9 +27,6 @@ class TerrainNode
 		SCIENCE  //blue
 	};
 
-
-
-public:
 	TerrainNode();
 	TerrainNode(int i, int j);
 	TerrainNode(int x, int y, int i, int j);

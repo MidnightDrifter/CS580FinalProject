@@ -8,7 +8,7 @@ class TerrainInfoMap : public Singleton<TerrainInfoMap>
 {
 	enum PLAYER_AREA_SIZE { sPAS = 3, lPAS };
 	enum RESOURCE_AMOUNTS {sRA=6, mRA = 12, lRA = 20};
-
+	const int STARTING_RESOURCE_AMOUNT = 5;
 
 public:
 	TerrainInfoMap();
@@ -34,6 +34,15 @@ public:
 	void generateTerrain(); //Generates the terrain values via weighted randoms
 
 	bool isInPlayerArea(int i, int x, int y);
+
+	int chooseResource();  //Randomly chooses A. to place a resource or not and B. what resource to place
+	void placeResource(int x, int i, int j);  //Places a resource at a given node & sets the appropriate color
+
+	int rangeRand(int upper, int lower);  //Generate a number within the specified range, inclusive
+	int selectResource();  //Generate a number between 0-3, corresponds to which resource to place
+
+
+	void clear();  //Kills resources & colors
 
 private:
 	TerrainNode map[SIZE_OF_MAP][SIZE_OF_MAP];
