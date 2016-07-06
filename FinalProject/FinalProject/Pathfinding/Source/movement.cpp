@@ -33,7 +33,8 @@ Movement::Movement(GameObject& owner)
 	m_aStarUsesAnalysis(false),
 	m_heuristicWeight(1.0f),
 	m_heuristicCalc(0),
-	m_fogOfWar(false)
+	m_fogOfWar(false),
+	terrainInfoMap()
 
 {
 	
@@ -168,6 +169,26 @@ bool Movement::ComputePath(int r, int c, bool newRequest)
 	g_terrain.GetRowColumn(&cur, &curR, &curC);
 
 
+	if (this->GetStraightlinePath() && newRequest)  //Toggle the resource map on / off
+	{
+		terrainInfoMap.clear();
+		//Rubberbanding - toggle ??? on and off
+		//Smoothing - toggle ??? on and off
+		if (this->GetRubberbandPath())
+		{
+
+		}
+
+		if (this->GetSmoothPath())
+		{
+
+		}
+
+
+
+		terrainInfoMap.generateTerrain();
+
+	}
 
 
 

@@ -9,7 +9,7 @@
  */
 
 #pragma once
-
+#include "../TerrainInfoMap.h"
 
 
 class GameObject;
@@ -63,6 +63,7 @@ public:
     void SetFogOfWar( bool enable )                         { m_fogOfWar = enable; }
     bool GetFogOfWar() const                                { return m_fogOfWar; }
 
+	TerrainInfoMap& editTerrainInfoMap() { return terrainInfoMap; }
 	
 
 protected:
@@ -89,6 +90,8 @@ protected:
 	float m_speedJog;
 
 	bool ComputePath( int r, int c, bool newRequest );
+
+	TerrainInfoMap terrainInfoMap;
 
 
 	

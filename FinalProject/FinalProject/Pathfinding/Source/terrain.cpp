@@ -274,7 +274,7 @@ void Terrain::IncTerrainAnalysis( void )
 float Terrain::ClosestWall( int row, int col )   //DONE- test it - test SUCCESSFUL
 {
 	//TODO: Helper function for the Terrain Analysis project (you'll likely need it).
-
+	return 0.f;
 	
 }
 

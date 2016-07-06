@@ -70,7 +70,7 @@ TerrainInfoMap::TerrainInfoMap(int p, int fp, int max, int pr, int pas) : map(),
 	}
 }
 
-inline int TerrainInfoMap::rangeRand(int u, int l) { return rand() % u + (u - l); }
+inline int TerrainInfoMap::rangeRand(int u, int l) { return rand() % (u-l) + (l); }
 inline int TerrainInfoMap::selectResource() { return rand() % 4; }
 int TerrainInfoMap::getNumPlayers() const { return numPlayers; }
 int TerrainInfoMap::getFavoredPlayer() const { return favoredPlayer; }
@@ -130,12 +130,12 @@ void TerrainInfoMap::generateTerrain()
 	int resourcesPlaced=0;  //Total number of resources placed
 	int x = this->rangeRand(3, 0);  //P1's zone
 	int y = this->rangeRand(3, 0); //P1's zone
-	int res = this->chooseResource();  //Choose starting resource
+	int res = this->selectResource();  //Choose starting resource
 	do
 	{
-		if (map[x][y].getResource() != -1)
+		if (map[x][y].getResource() == -1)
 		{
-			res = this->chooseResource();
+			res = this->selectResource();
 			//P1's fav resource is:  Minerals
 			if (res == TerrainNode::MINERALS)
 			{
@@ -172,11 +172,11 @@ void TerrainInfoMap::generateTerrain()
 
 	do
 	{
-		if (map[x][y].getResource() != -1)
+		if (map[x][y].getResource() == -1)
 		{
-			res = this->chooseResource();
+			res = this->selectResource();
 			//P2's fav resource is:  Gold
-			if (res == TerrainNode::MINERALS)
+			if (res == TerrainNode::GOLD)
 			{
 				if (player2Counts[1] < 2)
 				{
@@ -213,9 +213,9 @@ void TerrainInfoMap::generateTerrain()
 	//P3
 	do
 	{
-		if (map[x][y].getResource() != -1)
+		if (map[x][y].getResource() == -1)
 		{
-			res = this->chooseResource();
+			res = this->selectResource();
 			if (res == TerrainNode::FOOD)
 			{
 				if (player3Counts[0] < 2)
@@ -254,9 +254,9 @@ void TerrainInfoMap::generateTerrain()
 	//P4
 	do
 	{
-		if (map[x][y].getResource() != -1)
+		if (map[x][y].getResource() == -1)
 		{
-			res = this->chooseResource();
+			res = this->selectResource();
 			if (res == TerrainNode::SCIENCE)
 			{
 				if (player4Counts[0] < 2)
@@ -295,9 +295,9 @@ void TerrainInfoMap::generateTerrain()
 
 
 	do {
-		if (!this->isInPlayerArea(0, x, y) && !this->isInPlayerArea(1, x, y) && !this->isInPlayerArea(2, x, y) && !this->isInPlayerArea(3, x, y) && map[x][y].getResource == -1)
+		if (!this->isInPlayerArea(0, x, y) && !this->isInPlayerArea(1, x, y) && !this->isInPlayerArea(2, x, y) && !this->isInPlayerArea(3, x, y) && map[x][y].getResource() == -1)
 		{
-			res = this->chooseResource();
+			res = this->selectResource();
 			
 			if (preferredResource > 0)
 			{

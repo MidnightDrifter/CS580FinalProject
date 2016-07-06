@@ -35,7 +35,7 @@ public:
 
 	bool isInPlayerArea(int i, int x, int y);
 
-	int chooseResource();  //Randomly chooses A. to place a resource or not and B. what resource to place
+	
 	void placeResource(int x, int i, int j);  //Places a resource at a given node & sets the appropriate color
 
 	int rangeRand(int upper, int lower);  //Generate a number within the specified range, inclusive
