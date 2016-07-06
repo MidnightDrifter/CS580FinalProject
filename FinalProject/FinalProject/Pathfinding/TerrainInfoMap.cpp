@@ -1,5 +1,6 @@
 #include "DXUT.h"
 #include "TerrainInfoMap.h"
+#include <time.h>
 
 
 
@@ -120,7 +121,7 @@ void TerrainInfoMap::generateTerrain()
 	//(size-1 - size-4)x  (size-1 - size-4)y p4's zone
 
 	//Resources are in the following order:  Minerals, Gold, Food, Science
-
+	srand(time(NULL));
 	int playerCounts[4] = { 0,0,0,0 };  //Amount of resources in each player's zone
 	int player1Counts[4] = { 0,0,0,0 };  //Count of number of resources in P1's zone
 	int player2Counts[4] = { 0,0,0,0 };	// ""  P2
