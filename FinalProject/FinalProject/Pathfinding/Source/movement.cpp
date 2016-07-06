@@ -194,7 +194,7 @@ bool Movement::ComputePath(int r, int c, bool newRequest)
 
 
 
-	bool useAStar = false;
+	bool useAStar = true;
 	if(useAStar)
 	{ }
 	
