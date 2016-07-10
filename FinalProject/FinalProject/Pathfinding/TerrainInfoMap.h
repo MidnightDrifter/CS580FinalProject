@@ -31,18 +31,23 @@ public:
 	void setPreferredResource(int x);  //Note:  this is the ONLY method that can break the limit on the resource amounts
 	void setPlayerAreaSize(int x);
 
-	void generateTerrain(); //Generates the terrain values via weighted randoms
+	void generateTerrain(bool x); //Generates the terrain values via weighted randoms
 
 	bool isInPlayerArea(int i, int x, int y);
 
 	
 	void placeResource(int x, int i, int j);  //Places a resource at a given node & sets the appropriate color
 
-	int rangeRand(int upper, int lower);  //Generate a number within the specified range, inclusive
+	int rangeRand(int upper, int lower);  //Generate a number within the specified range, [lower,upper)
 	int selectResource();  //Generate a number between 0-3, corresponds to which resource to place
 
 
 	void clear();  //Kills resources & colors
+
+	int randRangeGauss(int x);
+	int randRangeChoice(bool x, int u, int l);
+
+
 
 private:
 	TerrainNode map[SIZE_OF_MAP][SIZE_OF_MAP];

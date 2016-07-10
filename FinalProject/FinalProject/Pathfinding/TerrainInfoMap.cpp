@@ -113,7 +113,45 @@ bool TerrainInfoMap::isInPlayerArea(int i, int x, int y)
 	}
 }
 
-void TerrainInfoMap::generateTerrain()
+int TerrainInfoMap::randRangeGauss(int x)  //Returns val between 0 - x
+{
+	static unsigned long seed = time(NULL);
+	double sum = 0;
+	for (int i = 0; i<=x; i++)
+	{   // Uses an xorshift PRNG
+		unsigned long hold = seed;
+		seed ^= seed << 13;
+		seed ^= seed >> 17;
+		seed ^= seed << 5;
+		long r = hold + seed;
+		sum += (double)r * (1.0 / 0x7FFFFFFF);
+	}
+	// Returns [-3.0,3.0] (66.7%–95.8%–100%)
+	sum = abs(sum);
+
+	return int(floor(sum));
+
+
+
+}
+
+
+int TerrainInfoMap::randRangeChoice(bool x, int u, int l)
+{
+	if(true)
+	{
+		return rangeRand(u, l);
+	}
+
+	else
+	{
+		return randRangeGauss(u);
+	}
+}
+
+
+
+void TerrainInfoMap::generateTerrain(bool z)
 {
 	//(0-3)x  (0-3)y  = P1 's zone
 	//(0-3)x  (size-1 - size-4)y = p2's zone
@@ -200,15 +238,15 @@ void TerrainInfoMap::generateTerrain()
 
 
 
-		x = this->rangeRand(3, 0);
-		y = this->rangeRand(g_terrain.GetWidth() - 1, g_terrain.GetWidth() - 4);
+		x = this->rangeRand(4, 0);
+		y = this->rangeRand(g_terrain.GetWidth(), g_terrain.GetWidth() - 4);
 
 
 	} while (playerCounts[1] < 5);
 
 
-	y = this->rangeRand(3, 0);
-	x = this->rangeRand(g_terrain.GetWidth() - 1, g_terrain.GetWidth() - 4);
+	y = this->rangeRand(4, 0);
+	x = this->rangeRand(g_terrain.GetWidth(), g_terrain.GetWidth() - 4);
 
 
 	//P3
@@ -239,16 +277,16 @@ void TerrainInfoMap::generateTerrain()
 
 
 
-		y = this->rangeRand(3, 0);
-		x = this->rangeRand(g_terrain.GetWidth() - 1, g_terrain.GetWidth() - 4);
+		y = this->rangeRand(4, 0);
+		x = this->rangeRand(g_terrain.GetWidth(), g_terrain.GetWidth() - 4);
 
 
 	} while (playerCounts[2] < 5);
 
 
 	
-	y = this->rangeRand(g_terrain.GetWidth() - 1, g_terrain.GetWidth() - 4);
-	x = this->rangeRand(g_terrain.GetWidth() - 1, g_terrain.GetWidth() - 4);
+	y = this->rangeRand(g_terrain.GetWidth(), g_terrain.GetWidth() - 4);
+	x = this->rangeRand(g_terrain.GetWidth(), g_terrain.GetWidth() - 4);
 
 
 
@@ -260,10 +298,10 @@ void TerrainInfoMap::generateTerrain()
 			res = this->selectResource();
 			if (res == TerrainNode::SCIENCE)
 			{
-				if (player4Counts[0] < 2)
+				if (player4Counts[3] < 2)
 				{
 					map[x][y].setResource(TerrainNode::SCIENCE);
-					player4Counts[0]++;
+					player4Counts[3]++;
 					playerCounts[3]++;
 				}
 			}
@@ -282,17 +320,18 @@ void TerrainInfoMap::generateTerrain()
 
 
 
-		y = this->rangeRand(g_terrain.GetWidth() - 1, g_terrain.GetWidth() - 4);
-		x = this->rangeRand(g_terrain.GetWidth() - 1, g_terrain.GetWidth() - 4);
+		y = this->rangeRand(g_terrain.GetWidth(), g_terrain.GetWidth() - 4);
+		x = this->rangeRand(g_terrain.GetWidth(), g_terrain.GetWidth() - 4);
 
 
-	} while (playerCounts[0] < 5);
+	} while (playerCounts[3] < 5);
 	
 
 
 	// MAIN MAP
-	x = this->rangeRand(g_terrain.GetWidth() - 1, 0);
-	y = this->rangeRand(g_terrain.GetWidth() - 1, 0);
+	
+	x = this->randRangeChoice(z,g_terrain.GetWidth(), 0);
+	y = this->randRangeChoice(z, g_terrain.GetWidth(), 0);
 
 
 	do {
@@ -339,9 +378,9 @@ void TerrainInfoMap::generateTerrain()
 
 		}
 
-		x = this->rangeRand(g_terrain.GetWidth() - 1, 0);
-		y = this->rangeRand(g_terrain.GetWidth() - 1, 0);
-		
+		x = this->randRangeChoice(z, g_terrain.GetWidth(), 0);
+		y = this->randRangeChoice(z, g_terrain.GetWidth(), 0);
+
 
 	} while (resourcesPlaced < (maxAmountOfResource * 4));
 

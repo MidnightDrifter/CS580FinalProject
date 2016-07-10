@@ -167,33 +167,26 @@ bool Movement::ComputePath(int r, int c, bool newRequest)
 	int curR, curC;
 	D3DXVECTOR3 cur = m_owner->GetBody().GetPos();
 	g_terrain.GetRowColumn(&cur, &curR, &curC);
-
+	m_waypointList.push_back(cur);
 
 	if (this->GetStraightlinePath() && newRequest)  //Toggle the resource map on / off
 	{
 		terrainInfoMap.clear();
-		//Rubberbanding - toggle ??? on and off
+		//Rubberbanding - toggle Gaussian randomness on and off
 		//Smoothing - toggle ??? on and off
-		if (this->GetRubberbandPath())
-		{
-
-		}
-
-		if (this->GetSmoothPath())
-		{
-
-		}
 
 
 
-		terrainInfoMap.generateTerrain();
+
+
+		terrainInfoMap.generateTerrain(this->GetRubberbandPath());
 
 	}
 
 
 
 
-
+	return true;
 	bool useAStar = true;
 	if(useAStar)
 	{ }
