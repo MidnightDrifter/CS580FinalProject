@@ -35,12 +35,12 @@ public:
 	~TerrainNode();
 
 	int getResource() const;
-	int getOwner() const;
+	//int getOwner() const;
 	int getX() const;
 	int getY() const;
 
 	void setResource(int x);
-	void setOwner(int x);
+	//void setOwner(int x);
 	void setX(int x);
 	void setY(int x);
 	void clear();
@@ -52,7 +52,7 @@ private:
 	int myX;
 	int myY;
 	int resource;
-	int owner;
+	//int owner;
 
 };
 
